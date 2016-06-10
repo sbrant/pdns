@@ -1,0 +1,14 @@
+<dashboard>
+  <label>starting point</label>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>| datamodel Network_Resolution DNS search | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type original_reference | eval "Blacklist Type"=type | table timestamp DNS.src DNS.dest DNS.ut_domain "Blacklist Type"</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+      </table>
+    </panel>
+  </row>
+</dashboard>

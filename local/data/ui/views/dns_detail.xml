@@ -1,0 +1,96 @@
+<form>
+    <label>Link Switcher</label>
+    <description>Toggle dashboard content using a list of links.</description>
+    <fieldset submitButton="false">
+        <input type="link" token="unused">
+            <label>Choose a view</label>
+            <choice value="domain">Domain</choice>
+            <choice value="source">Source</choice>
+            <choice value="answer">Answer</choice>
+            <default>Table</default>
+            <change>
+                <condition value="domain">
+                    <set token="showTable">true</set>
+                    <unset token="showChart"></unset>
+                    <unset token="showMap"></unset>
+                </condition>
+                <condition value="source">
+                    <set token="showChart">true</set>
+                    <unset token="showTable"></unset>
+                    <unset token="showMap"></unset>
+                </condition>
+                <condition value="answer">
+                    <set token="showMap">true</set>
+                    <unset token="showChart"></unset>
+                    <unset token="showTable"></unset>
+                </condition>
+            </change>
+        </input>
+    </fieldset>
+    <row>
+        <panel>
+            <table depends="$showTable$">
+                <title>Domain</title>
+                <search>
+                    <query>index=_internal | stats count by sourcetype</query>
+                    <earliest>-24h</earliest>
+                    <latest>now</latest>
+                </search>
+            </table>
+            <chart depends="$showChart$">
+                <title>Source</title>
+                <search>
+                    <query>index=_internal | stats count by sourcetype</query>
+                    <earliest>-24h</earliest>
+                    <latest>now</latest>
+                </search>
+            </chart>
+            <map depends="$showMap$">
+                <title>Answer</title>
+                <search>
+                    <query>| inputlookup geomaps_data.csv | iplocation device_ip | geostats latfield=lat longfield=lon count by method</query>
+                    <earliest>0</earliest>
+                    <latest>now</latest>
+                </search>
+                <option name="mapping.map.center">(30.810646,-10.556976)</option>
+                <option name="mapping.map.zoom">2</option>
+            </map>
+        </panel>
+</row>
+    <row>
+        <panel>
+            <input type="link" token="needed">
+                <label>Choose a sourcetype:</label>
+                <choice value="link4">Internal Event Count</choice>
+                <choice value="link5">Splunk Event Count</choice>
+                <default>Internal Event Count</default>
+                <change>
+                    <condition value="link4">
+                        <set token="showInternal">true</set>
+                        <unset token="showSplunkd"></unset>
+                    </condition>
+                    <condition value="link5">
+                        <unset token="showInternal"></unset>
+                        <set token="showSplunkd">true</set>
+                    </condition>
+                </change>
+            </input>
+                <single depends="$showInternal$">
+                    <title>Internal event count</title>
+                    <search>
+                        <query>index=_internal | stats count</query>
+                        <earliest>-24h</earliest>
+                        <latest>now</latest>
+                    </search>
+                </single>
+                <single depends="$showSplunkd$">
+                    <title>Splunkd event count</title>
+                    <search>
+                        <query>index=_internal sourcetype=splunkd | stats count</query>
+                        <earliest>-24h</earliest>
+                        <latest>now</latest>
+                    </search>
+                </single>
+        </panel>
+    </row>
+</form>
