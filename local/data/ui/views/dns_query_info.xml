@@ -30,7 +30,7 @@
     <panel>
       <table id="master">
         <search>
-          <query>| datamodel Network_Resolution DNS search | search $querytype$ | eval upper_dom=upper('DNS.ut_domain') | where upper_dom!="NONE" | stats last(timestamp) AS "First Query" first(endtime) AS "Last Query" count(DNS.query) AS "Number of Queries" dc(DNS.answer) AS "Distinct Answers" dc(DNS.ut_subdomain) AS "Distinct Subdomains" dc(DNS.src) AS "Distinct Clients" max(eval(len('DNS.ut_subdomain'))) AS "Max Subdomain Length" by DNS.ut_domain upper_dom  | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" | eval verdict=if(len("Blacklist Type")&gt;1, 1, 0) | rangemap field=verdict OK=0-0 NotOK=1-1 | addinfo</query>
+          <query>| datamodel pDNS_CIM DNS search | search $querytype$ | eval upper_dom=upper('DNS.ut_domain') | where upper_dom!="NONE" | stats last(timestamp) AS "First Query" first(endtime) AS "Last Query" count(DNS.query) AS "Number of Queries" dc(DNS.answer) AS "Distinct Answers" dc(DNS.ut_subdomain) AS "Distinct Subdomains" dc(DNS.src) AS "Distinct Clients" max(eval(len('DNS.ut_subdomain'))) AS "Max Subdomain Length" by DNS.ut_domain upper_dom  | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" | eval verdict=if(len("Blacklist Type")&gt;1, 1, 0) | rangemap field=verdict OK=0-0 NotOK=1-1 | addinfo</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
@@ -57,7 +57,7 @@
       <table id="detail" depends="$ut_domain$">
         <title>Queries Against Domain: $ut_domain$</title>
         <search>
-          <query>| tstats sparkline AS "Trend of Queries" dc(DNS.answer) AS "Number of Answers" count(DNS.query) AS "Number of Queries" dc(DNS.src) AS "Number of Distinct Systems" values(DNS.dest) values(DNS.src) AS "Systems Making the Request" FROM datamodel=Network_Resolution WHERE DNS.ut_domain=$ut_domain$ BY DNS.query DNS.ut_domain</query>
+          <query>| tstats sparkline AS "Trend of Queries" dc(DNS.answer) AS "Number of Answers" count(DNS.query) AS "Number of Queries" dc(DNS.src) AS "Number of Distinct Systems" values(DNS.dest) values(DNS.src) AS "Systems Making the Request" FROM datamodel=pDNS_CIM WHERE DNS.ut_domain=$ut_domain$ BY DNS.query DNS.ut_domain</query>
           <earliest>$etime$</earliest>
           <latest>$ltime$</latest>
         </search>

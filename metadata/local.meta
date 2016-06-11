@@ -9,7 +9,7 @@ modtime = 1458235505.852294000
 [views/dns_query_info]
 owner = sbrant
 version = 6.4.1
-modtime = 1465170786.670239000
+modtime = 1465682946.098973000
 
 [lookups/domains.csv]
 access = read : [ * ], write : [ admin ]
@@ -28,7 +28,7 @@ modtime = 1460929374.621624000
 [views/domain_detail]
 owner = admin
 version = 6.4.1
-modtime = 1465441266.633872000
+modtime = 1465683049.090173000
 
 [views/dns_detail]
 owner = admin
@@ -39,3 +39,17 @@ modtime = 1461735108.527600000
 owner = admin
 version = 6.4.1
 modtime = 1464329635.198086000
+
+[datamodels/pDNS_CIM]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = nobody
+version = 6.4.1
+modtime = 1465682792.739549000
+
+[models/pDNS_CIM]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = nobody
+version = 6.4.1
+modtime = 1465682792.743205000

@@ -1,6 +1,6 @@
 {
-    "modelName": "Network_Resolution",
-    "displayName": "Network Resolution (DNS)",
+    "modelName": "pDNS_CIM",
+    "displayName": "pDNS_CIM",
     "description": "Network Resolution Data Model",
     "objectSummary": {
         "Event-Based": 1,
@@ -167,18 +167,6 @@
                     "hidden": false,
                     "editable": true,
                     "displayName": "src",
-                    "comment": ""
-                },
-                {
-                    "fieldName": "src_bunit",
-                    "owner": "DNS",
-                    "type": "string",
-                    "fieldSearch": "",
-                    "required": false,
-                    "multivalue": false,
-                    "hidden": false,
-                    "editable": true,
-                    "displayName": "src_bunit",
                     "comment": ""
                 },
                 {
@@ -371,7 +359,7 @@
                     "editable": true,
                     "comment": "",
                     "calculationType": "Eval",
-                    "expression": "if(isnull(answer) OR answer=\"\",\"unknown\",answer)"
+                    "expression": "coalesce(answer,'host_addr{}')"
                 },
                 {
                     "outputFields": [
