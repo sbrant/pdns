@@ -359,7 +359,7 @@
                     "editable": true,
                     "comment": "",
                     "calculationType": "Eval",
-                    "expression": "coalesce(answer,'host_addr{}')"
+                    "expression": "coalesce(answer,'host_addr{}',\"unknown\")"
                 },
                 {
                     "outputFields": [
