@@ -1,7 +1,7 @@
 {
     "modelName": "pDNS_CIM",
     "displayName": "pDNS_CIM",
-    "description": "Network Resolution Data Model",
+    "description": "Passive DNS Data Model (CIM Fields)",
     "objectSummary": {
         "Event-Based": 1,
         "Transaction-Based": 0,

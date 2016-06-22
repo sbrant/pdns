@@ -9,7 +9,7 @@ modtime = 1458235505.852294000
 [views/dns_query_info]
 owner = sbrant
 version = 6.4.1
-modtime = 1465682946.098973000
+modtime = 1465688857.046062000
 
 [lookups/domains.csv]
 access = read : [ * ], write : [ admin ]

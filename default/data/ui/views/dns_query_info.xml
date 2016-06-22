@@ -1,6 +1,6 @@
 <form>
   <label>DNS Query Info</label>
-  <fieldset submitButton="false" autoRun="true">
+  <fieldset submitButton="true" autoRun="true">
     <input type="time" token="time_range" searchWhenChanged="true">
       <label>Time Range</label>
       <default>
@@ -24,6 +24,10 @@
       <delimiter> OR </delimiter>
       <initialValue>A</initialValue>
       <choice value="*">All Record Types</choice>
+    </input>
+    <input type="text" token="poq">
+      <label>Portion of Query</label>
+      <default>*</default>
     </input>
   </fieldset>
   <row>
