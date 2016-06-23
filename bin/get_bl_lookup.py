@@ -1,8 +1,9 @@
 # --------------------------------------------------------------
+# Example script to build a blacklist lookup from online sources.
 # Grab and process the latest domain list from:
 # http://www.malwaredomains.com/?page_id=66
 #
-# Author: sbrant@splunk.com
+# Author: Steve Brant
 # --------------------------------------------------------------
 
 import csv

@@ -17,7 +17,7 @@
       <table>
         <title>Subdomains Queried: $domain_name$</title>
         <search>
-          <query>| datamodel pDNS_CIM DNS search | search "DNS.ut_domain"=$domain_name$ | stats last(timestamp) AS "First Seen" first(endtime) AS "Last Seen" values(DNS.answer) AS "Query Answers" count(DNS.query) AS "Number of Queries" by "DNS.query"</query>
+          <query>| datamodel pDNS_CIM DNS search | search "DNS.ut_domain"=$domain_name$ | stats last(_time) AS "First Seen" first(_time) AS "Last Seen" values(DNS.answer) AS "Query Answers" count(DNS.query) AS "Number of Queries" by "DNS.query" | convert timeformat="%F %H:%M:%S" ctime("First Seen") AS "First Seen" ctime("Last Seen") AS "Last Seen"</query>
           <earliest>$timeframe.earliest$</earliest>
           <latest>$timeframe.latest$</latest>
         </search>
@@ -38,7 +38,7 @@
       <table id="detail" depends="$dns_query$">
         <title>Clients Querying: $dns_query$</title>
         <search>
-          <query>| datamodel pDNS_CIM DNS search | search DNS.query=$dns_query$ | stats last(timestamp) AS "First Seen" first(timestamp) AS "Last Seen" count(DNS.query) AS "Query Count" values(DNS.query) AS "DNS Query" by DNS.src</query>
+          <query>| datamodel pDNS_CIM DNS search | search DNS.query=$dns_query$ | stats last(_time) AS "First Seen" first(_time) AS "Last Seen" count(DNS.query) AS "Query Count" values(DNS.query) AS "DNS Query" by DNS.src | convert timeformat="%F %H:%M:%S" ctime("First Seen") AS "First Seen" ctime("Last Seen") AS "Last Seen"</query>
           <earliest>$timeframe.earliest$</earliest>
           <latest>$timeframe.latest$</latest>
         </search>

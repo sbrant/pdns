@@ -1,40 +1,34 @@
 <form>
   <label>DNS Query Info</label>
-  <fieldset submitButton="true" autoRun="true">
-    <input type="time" token="time_range" searchWhenChanged="true">
+  <fieldset submitButton="true" autoRun="false">
+    <input type="time" token="time_range" searchWhenChanged="false">
       <label>Time Range</label>
       <default>
         <earliest>-15m</earliest>
         <latest>now</latest>
       </default>
     </input>
-    <input type="multiselect" token="querytype" searchWhenChanged="true">
+    <input type="multiselect" token="querytype" searchWhenChanged="false">
       <label>Query Type</label>
-      <search>
-        <query>tag=dns | where query_type!="*" | stats count by query_type | fields - count</query>
-        <earliest>-24h@h</earliest>
-        <latest>now</latest>
-      </search>
+      <search ref="query type"></search>
       <fieldForLabel>query_type</fieldForLabel>
-      <fieldForValue>query_type</fieldForValue>
-      <prefix>(</prefix>
-      <suffix>)</suffix>
-      <valuePrefix>DNS.query_type="</valuePrefix>
-      <valueSuffix>"</valueSuffix>
-      <delimiter> OR </delimiter>
+      <fieldForValue>dns_record_type</fieldForValue>
       <initialValue>A</initialValue>
       <choice value="*">All Record Types</choice>
+      <delimiter> OR </delimiter>
     </input>
     <input type="text" token="poq">
       <label>Portion of Query</label>
       <default>*</default>
+      <prefix>*</prefix>
+      <suffix>*</suffix>
     </input>
   </fieldset>
   <row>
     <panel>
       <table id="master">
         <search>
-          <query>| datamodel pDNS_CIM DNS search | search $querytype$ | eval upper_dom=upper('DNS.ut_domain') | where upper_dom!="NONE" | stats last(timestamp) AS "First Query" first(endtime) AS "Last Query" count(DNS.query) AS "Number of Queries" dc(DNS.answer) AS "Distinct Answers" dc(DNS.ut_subdomain) AS "Distinct Subdomains" dc(DNS.src) AS "Distinct Clients" max(eval(len('DNS.ut_subdomain'))) AS "Max Subdomain Length" by DNS.ut_domain upper_dom  | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" | eval verdict=if(len("Blacklist Type")&gt;1, 1, 0) | rangemap field=verdict OK=0-0 NotOK=1-1 | addinfo</query>
+          <query>| datamodel pDNS_CIM DNS search | search $querytype$ DNS.query=$poq$ | eval upper_dom=upper('DNS.ut_domain') | where upper_dom!="NONE" | stats last(_time) AS "First Query" first(_time) AS "Last Query" count(DNS.query) AS "Number of Queries" dc(DNS.answer) AS "Distinct Answers" dc(DNS.ut_subdomain) AS "Distinct Subdomains" dc(DNS.src) AS "Distinct Clients" max(eval(len('DNS.ut_subdomain'))) AS "Max Subdomain Length" by DNS.ut_domain upper_dom  | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" | eval verdict=if(len("Blacklist Type")&gt;1, 1, 0) | rangemap field=verdict OK=0-0 NotOK=1-1 | convert timeformat="%F %H:%M:%S" ctime("First Query") AS "First Query" ctime("Last Query") AS "Last Query" | addinfo</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>

@@ -1,15 +1,15 @@
 [app/ui]
-version = 6.4.0
-modtime = 1458235505.851228000
+version = 6.4.1
+modtime = 1466648061.410071000
 
 [app/launcher]
-version = 6.4.0
-modtime = 1458235505.852294000
+version = 6.4.1
+modtime = 1466648061.412262000
 
 [views/dns_query_info]
 owner = sbrant
 version = 6.4.1
-modtime = 1465688857.046062000
+modtime = 1466720750.696895000
 
 [lookups/domains.csv]
 access = read : [ * ], write : [ admin ]
@@ -28,7 +28,7 @@ modtime = 1460929374.621624000
 [views/domain_detail]
 owner = admin
 version = 6.4.1
-modtime = 1465683049.090173000
+modtime = 1466659095.263392000
 
 [views/dns_detail]
 owner = admin
@@ -53,3 +53,24 @@ export = none
 owner = nobody
 version = 6.4.1
 modtime = 1465687524.922575000
+
+[app/package/check_for_updates]
+version = 6.4.1
+modtime = 1466648061.413153000
+
+[lookups/record_types.csv]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 6.4.1
+modtime = 1466718560.984358000
+
+[savedsearches/query%20type]
+export = none
+owner = admin
+version = 6.4.1
+modtime = 1466720658.360398000
+
+[nav/default]
+version = 6.4.1
+modtime = 1466720960.878579000
