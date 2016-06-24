@@ -55,7 +55,7 @@
       <table id="detail" depends="$ut_domain$">
         <title>Queries Against Domain: $ut_domain$</title>
         <search>
-          <query>| tstats sparkline AS "Trend of Queries" dc(DNS.answer) AS "Number of Answers" count(DNS.query) AS "Number of Queries" dc(DNS.src) AS "Number of Distinct Systems" values(DNS.dest) values(DNS.src) AS "Systems Making the Request" FROM datamodel=pDNS_CIM WHERE DNS.ut_domain=$ut_domain$ BY DNS.query DNS.ut_domain</query>
+          <query>| tstats sparkline AS "Trend of Queries" dc(DNS.answer) AS "Number of Answers" count(DNS.query) AS "Number of Queries" dc(DNS.src) AS "Number of Distinct Systems" values(DNS.dest) values(DNS.src) AS "Systems Making the Request" FROM datamodel=pDNS_CIM WHERE DNS.ut_domain=$ut_domain$ BY DNS.query DNS.ut_domain | addinfo</query>
           <earliest>$etime$</earliest>
           <latest>$ltime$</latest>
         </search>
@@ -67,7 +67,7 @@
         <drilldown target="_blank">
           <link>
             <![CDATA[
-            domain_detail?form.domain_name=$row.DNS.ut_domain$
+            domain_detail?form.domain_name=$row.DNS.ut_domain$&form.timeframe.earliest=$row.info_min_time$&form.timeframe.latest=$row.info_max_time$
           ]]>
           </link>
         </drilldown>
