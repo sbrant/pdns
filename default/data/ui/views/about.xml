@@ -5,7 +5,12 @@
       <html>
         Created by Steve Brant and Kathy Wang
         <br></br>
+        <br></br>
 	This app allows the user to view and investigate passively collected, local DNS data. It flags DNS activity involving blacklisted domains (knowns). It also assists by highlighting potential indicators (unknowns) of nefarious activity in the DNS realm, such as exfiltration.
+      	<br></br>
+        <br></br>
+        The app includes a script in $SPLUNK_HOME/etc/apps/pdns/bin that will pull a MalwareDomains domain list for looking up malicious domains being queried. Please read the MalwareDomains terms of use prior to utilizing: http://www.malwaredomains.com/?page_id=1508
+        <br></br>
       </html>
     </panel>
   </row>
