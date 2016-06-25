@@ -1,9 +1,12 @@
 # --------------------------------------------------------------
+#
 # Example script to build a blacklist lookup from online sources.
+# Please read the terms of use prior to using the MalwareDomains list:
+# http://www.malwaredomains.com/?page_id=1508
+#
 # Grab and process the latest domain list from:
 # http://www.malwaredomains.com/?page_id=66
 #
-# Author: Steve Brant
 # --------------------------------------------------------------
 
 import csv
