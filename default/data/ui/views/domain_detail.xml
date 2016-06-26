@@ -15,7 +15,7 @@
   <row>
     <panel>
       <table>
-        <title>Subdomains Queried: $domain_name$</title>
+        <title>Subdomains Queried: $domain_name$ (Click for further detail)</title>
         <search>
           <query>| datamodel pDNS_CIM DNS search | search "DNS.ut_domain"=$domain_name$ | stats last(_time) AS "First Seen" first(_time) AS "Last Seen" values(DNS.answer) AS "Query Answers" count(DNS.query) AS "Number of Queries" by "DNS.query" | convert timeformat="%F %H:%M:%S" ctime("First Seen") AS "First Seen" ctime("Last Seen") AS "Last Seen"</query>
           <earliest>$timeframe.earliest$</earliest>
@@ -36,7 +36,7 @@
   <row>
     <panel>
       <table id="detail" depends="$dns_query$">
-        <title>Clients Querying: $dns_query$</title>
+        <title>Clients Querying: $dns_query$ (Click for further detail)</title>
         <search>
           <query>| datamodel pDNS_CIM DNS search | search DNS.query=$dns_query$ | stats last(_time) AS "First Seen" first(_time) AS "Last Seen" count(DNS.query) AS "Query Count" values(DNS.query) AS "DNS Query" by DNS.src | convert timeformat="%F %H:%M:%S" ctime("First Seen") AS "First Seen" ctime("Last Seen") AS "Last Seen"</query>
           <earliest>$timeframe.earliest$</earliest>
@@ -85,7 +85,7 @@
     </panel>
         <panel>
       <table id="src_detail" depends="$dns_src$">
-        <title>Query Detail for $dns_query$ on Client $dns_src$</title>
+        <title>Query Detail for $dns_query$ on Client $dns_src$ (Click for drill down to raw events)</title>
         <search>
           <query>| datamodel pDNS_CIM DNS search | search DNS.src=$dns_src$ DNS.query=$dns_query$ | table timestamp DNS.src DNS.answer DNS.ut_domain | rename DNS.src AS "Source of Request" DNS.answer AS "Query Answer" DNS.ut_domain AS "Queried Domain"</query>
           <earliest>$timeframe.earliest$</earliest>
