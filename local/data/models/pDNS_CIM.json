@@ -447,7 +447,7 @@
                     "editable": true,
                     "comment": "",
                     "calculationType": "Eval",
-                    "expression": "if(isnull('query{}') OR 'query{}'=\"\",\"unknown\",'query{}')"
+                    "expression": "if(isnull(query) OR query=\"\",\"unknown\",query)"
                 },
                 {
                     "outputFields": [
