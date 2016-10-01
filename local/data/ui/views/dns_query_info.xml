@@ -23,6 +23,12 @@
       <prefix>*</prefix>
       <suffix>*</suffix>
     </input>
+    <input type="checkbox" token="cdn_match">
+      <label>Include CDN Providers</label>
+      <choice value="t">true</choice>
+      <default>true</default>
+      <initialValue>true</initialValue>
+    </input>
   </fieldset>
   <row>
     <panel>
@@ -59,6 +65,7 @@
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
+        <option name="drilldown">all</option>
         <option name="height">50</option>
         <option name="rangeColors">["0x65a637","0xd93f3c"]</option>
         <option name="rangeValues">[0]</option>
