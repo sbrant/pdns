@@ -1,0 +1,599 @@
+{
+    "modelName": "pDNS_CIM",
+    "displayName": "pDNS_CIM",
+    "description": "Passive DNS Data Model (CIM Fields)",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "DNS",
+            "displayName": "DNS",
+            "parentName": "BaseEvent",
+            "fields": [
+                {
+                    "fieldName": "additional_answer_count",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "additional_answer_count",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "authority_answer_count",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "authority_answer_count",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dest_bunit",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_bunit",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dest_category",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": true,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_category",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dest_port",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_port",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dest_priority",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_priority",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "duration",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "name",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "name",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "query_type",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "query_type",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "record_type",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "record_type",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "reply_code_id",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "reply_code_id",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "response_time",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "response_time",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "src",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "src_category",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": true,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_category",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "src_port",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": true,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_port",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "src_priority",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_priority",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "tag",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": true,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "transport",
+                    "owner": "DNS",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "transport",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "transaction_id",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "transaction_id",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "ttl",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "ttl",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "bytes",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "bytes_in",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_in",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "bytes_out",
+                    "owner": "DNS",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_out",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                }
+            ],
+            "calculations": [
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "answer",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": true,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "answer",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_0fillnull_answer",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "coalesce(answer,'host_addr{}',\"unknown\")"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "answer_count",
+                            "owner": "DNS",
+                            "type": "number",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "answer_count",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_answer_count",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "case(isnum(answer_count),answer_count,isnotnull(answer),mvcount(answer),1=1,1)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "dest",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "dest",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_fillnull_dest",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "if(isnull(dest) OR dest=\"\",\"unknown\",dest)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "message_type",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "message_type",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_fillnull_message_type",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "if(isnull(message_type) OR message_type=\"\",\"unknown\",message_type)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "query",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": true,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "query",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_0fillnull_query",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "if(isnull(query) OR query=\"\",\"unknown\",query)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "query_count",
+                            "owner": "DNS",
+                            "type": "number",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "query_count",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_query_count",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "case(isnum(query_count),query_count,isnotnull(query),mvcount(query),1=1,1)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "reply_code",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "reply_code",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_fillnull_reply_code",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "if(isnull(reply_code) OR reply_code=\"\",\"unknown\",reply_code)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "vendor_product",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "vendor_product",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "DNS_vendor_product",
+                    "owner": "DNS",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "case(isnotnull(vendor_product),vendor_product,isnotnull(vendor) AND vendor!=\"unknown\" AND isnotnull(product) AND product!=\"unknown\",vendor.\" \".product,isnotnull(vendor) AND vendor!=\"unknown\" AND (isnull(product) OR product=\"unknown\"),vendor.\" unknown\",(isnull(vendor) OR vendor=\"unknown\") AND isnotnull(product) AND product!=\"unknown\",\"unknown \".product,isnotnull(sourcetype),sourcetype,1=1,\"unknown\")"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "ut_subdomain",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "ut_subdomain",
+                            "comment": "",
+                            "lookupOutputFieldName": "ut_subdomain"
+                        },
+                        {
+                            "fieldName": "ut_subdomain_parts",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "ut_subdomain_parts",
+                            "comment": "",
+                            "lookupOutputFieldName": "ut_subdomain_parts"
+                        },
+                        {
+                            "fieldName": "ut_domain",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "ut_domain",
+                            "comment": "",
+                            "lookupOutputFieldName": "ut_domain"
+                        },
+                        {
+                            "fieldName": "list",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "ut_list",
+                            "comment": "",
+                            "lookupOutputFieldName": "list"
+                        }
+                    ],
+                    "calculationType": "Lookup",
+                    "lookupName": "ut_parse_extended_lookup",
+                    "comment": "",
+                    "lookupInputs": [
+                        {
+                            "inputField": "query",
+                            "lookupField": "url"
+                        }
+                    ],
+                    "owner": "DNS",
+                    "calculationID": "zg8gybgu679",
+                    "editable": true
+                }
+            ],
+            "constraints": [
+                {
+                    "search": "(`cim_Network_Resolution_indexes`) tag=network tag=resolution tag=dns",
+                    "owner": "DNS"
+                }
+            ],
+            "lineage": "DNS"
+        }
+    ],
+    "objectNameList": [
+        "DNS"
+    ]
+}
