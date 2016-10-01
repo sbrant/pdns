@@ -56,7 +56,7 @@
     </panel>
     <panel>
       <single>
-        <title>Number of Blacklist Hists</title>
+        <title>Blacklist Hists</title>
         <search>
           <query>| tstats count FROM datamodel=pDNS_CIM BY DNS.ut_domain 
 | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" 
@@ -82,11 +82,15 @@
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
-        <option name="wrap">true</option>
-        <option name="rowNumbers">false</option>
-        <option name="dataOverlayMode">none</option>
         <option name="count">8</option>
+        <option name="dataOverlayMode">none</option>
         <option name="drilldown">row</option>
+        <option name="rowNumbers">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Blacklist Type">
+          <colorPalette type="map">{*:#D93F3C}</colorPalette>
+        </format>
+        <fields>["First Query","Last Query","upper_dom","Number of Queries","Distinct Answers","Distinct Subdomains","Distinct Clients","Max Subdomain Length","Blacklist Type","Blacklist Reference"]</fields>
         <drilldown>
           <!-- Use set to specify the new token to be created.
                Use any token from the page or from the click event to produce the value needed. -->
@@ -96,7 +100,6 @@
           <!-- If we also set the form.sourcetype the input will get updated too -->
           <!-- <set token="form.sourcetype">$row.sourcetype$</set> -->
         </drilldown>
-        <fields>["First Query","Last Query","upper_dom","Number of Queries","Distinct Answers","Distinct Subdomains","Distinct Clients","Max Subdomain Length","Blacklist Type","Blacklist Reference"]</fields>
       </table>
     </panel>
   </row>
