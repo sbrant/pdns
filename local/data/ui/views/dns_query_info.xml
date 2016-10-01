@@ -1,0 +1,114 @@
+<form>
+  <label>DNS Query Info</label>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="time_range" searchWhenChanged="false">
+      <label>Time Range</label>
+      <default>
+        <earliest>-15m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="multiselect" token="querytype" searchWhenChanged="false">
+      <label>Query Type</label>
+      <search ref="query type"></search>
+      <fieldForLabel>query_type</fieldForLabel>
+      <fieldForValue>dns_record_type</fieldForValue>
+      <initialValue>A</initialValue>
+      <choice value="*">All Record Types</choice>
+      <delimiter> OR </delimiter>
+    </input>
+    <input type="text" token="poq">
+      <label>Portion of Query</label>
+      <default>*</default>
+      <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table id="master">
+        <title>Click row to drill down on query detail</title>
+        <search>
+          <query>| datamodel pDNS_CIM DNS search | search DNS.record_type=$querytype$ DNS.query=$poq$ NOT DNS.ut_domain="None" | eval upper_dom=upper('DNS.ut_domain') | eval upper_dom=if(upper_dom == "NONE",'DNS.ut_domain',upper_dom) | stats last(_time) AS "First Query" first(_time) AS "Last Query" count(DNS.query) AS "Number of Queries" dc(DNS.answer) AS "Distinct Answers" dc(DNS.ut_subdomain) AS "Distinct Subdomains" dc(DNS.src) AS "Distinct Clients" max(eval(len('DNS.ut_subdomain'))) AS "Max Subdomain Length" by DNS.ut_domain upper_dom  | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" | sort "Blacklist Type" | eval verdict=if(len("Blacklist Type")&gt;1, 1, 0) | rangemap field=verdict OK=0-0 NotOK=1-1 | convert timeformat="%F %H:%M:%S" ctime("First Query") AS "First Query" ctime("Last Query") AS "Last Query" | addinfo</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">8</option>
+        <option name="drilldown">row</option>
+        <drilldown>
+          <!-- Use set to specify the new token to be created.
+               Use any token from the page or from the click event to produce the value needed. -->
+          <set token="ut_domain">$row.DNS.ut_domain$</set>
+          <set token="etime">$row.info_min_time$</set>
+          <set token="ltime">$row.info_max_time$</set>
+          <!-- If we also set the form.sourcetype the input will get updated too -->
+          <!-- <set token="form.sourcetype">$row.sourcetype$</set> -->
+        </drilldown>
+        <fields>["First Query","Last Query","upper_dom","Number of Queries","Distinct Answers","Distinct Subdomains","Distinct Clients","Max Subdomain Length","Blacklist Type","Blacklist Reference"]</fields>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table id="detail" depends="$ut_domain$">
+        <title>Queries Against Domain: $ut_domain$ (click row for further detail)</title>
+        <search>
+          <query>| tstats sparkline AS "Trend of Queries" dc(DNS.answer) AS "Number of Answers" count(DNS.query) AS "Number of Queries" dc(DNS.src) AS "Number of Distinct Systems" values(DNS.dest) values(DNS.src) AS "Systems Making the Request" FROM datamodel=pDNS_CIM WHERE DNS.ut_domain=$ut_domain$ BY DNS.query DNS.ut_domain | addinfo</query>
+          <earliest>$etime$</earliest>
+          <latest>$ltime$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <drilldown target="_blank">
+          <link>
+            <![CDATA[
+            domain_detail?form.domain_name=$row.DNS.ut_domain$&form.timeframe.earliest=$row.info_min_time$&form.timeframe.latest=$row.info_max_time$
+          ]]>
+          </link>
+        </drilldown>
+        <fields>["DNS.query","Trend of Queries","Number of Answers","Number of Queries","Number of Distinct Systems","Systems Making the Request"]</fields>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Volume of DNS Events By All Types, Over Selected Time Period</title>
+        <search>
+          <query>tag=dns | where record_type!="*" | timechart count by record_type</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+      </chart>
+    </panel>
+  </row>
+</form>
