@@ -586,7 +586,7 @@
             ],
             "constraints": [
                 {
-                    "search": "(`cim_Network_Resolution_indexes`) tag=network tag=resolution tag=dns",
+                    "search": "tag=network tag=resolution tag=dns",
                     "owner": "DNS"
                 }
             ],
