@@ -24,10 +24,11 @@
       <suffix>*</suffix>
     </input>
     <input type="checkbox" token="cdn_match">
-      <label>Include CDN Providers</label>
+      <label>Include Content Delivery Networks</label>
       <choice value="t">true</choice>
-      <default>true</default>
-      <initialValue>true</initialValue>
+      <default>t</default>
+      <initialValue>t</initialValue>
+      <delimiter> </delimiter>
     </input>
   </fieldset>
   <row>
