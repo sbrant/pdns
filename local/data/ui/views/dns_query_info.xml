@@ -1,4 +1,4 @@
-<form>
+<form script="custom_table_row_expansion.js">
   <label>DNS Query Info</label>
   <fieldset submitButton="true" autoRun="true">
     <input type="time" token="time_range" searchWhenChanged="false">
@@ -76,7 +76,7 @@
   </row>
   <row>
     <panel>
-      <table id="master">
+      <table id="expand_with_events">
         <title>Click row to drill down on query detail</title>
         <search>
           <query>| datamodel pDNS_CIM DNS search | search DNS.record_type=$querytype$ DNS.query=$poq$ NOT DNS.ut_domain="None" | eval upper_dom=upper('DNS.ut_domain') | eval upper_dom=if(upper_dom == "NONE",'DNS.ut_domain',upper_dom) | stats last(_time) AS "First Query" first(_time) AS "Last Query" count(DNS.query) AS "Number of Queries" dc(DNS.answer) AS "Distinct Answers" dc(DNS.ut_subdomain) AS "Distinct Subdomains" dc(DNS.src) AS "Distinct Clients" max(eval(len('DNS.ut_subdomain'))) AS "Max Subdomain Length" by DNS.ut_domain upper_dom  | lookup mw_domain_lookup domain AS DNS.ut_domain OUTPUT type AS "Blacklist Type" original_reference AS "Blacklist Reference" | sort "Blacklist Type" | eval verdict=if(len("Blacklist Type")&gt;1, 1, 0) | rangemap field=verdict OK=0-0 NotOK=1-1 | convert timeformat="%F %H:%M:%S" ctime("First Query") AS "First Query" ctime("Last Query") AS "Last Query" | addinfo</query>
@@ -86,6 +86,7 @@
         <option name="count">8</option>
         <option name="dataOverlayMode">none</option>
         <option name="drilldown">row</option>
+        <option name="refresh.display">preview</option>
         <option name="rowNumbers">false</option>
         <option name="wrap">true</option>
         <format type="color" field="Blacklist Type">
