@@ -1,5 +1,48 @@
 <form script="custom_table_row_expansion.js">
   <label>DNS Query Info</label>
+  <!--  <row>
+    <panel>
+      <chart>
+        <title>Volume of DNS Events By All Types, Over Selected Time Period</title>
+        <search>
+          <query>tag=dns | where record_type!="*" | search NOT ($cdn_match$) | chart count by record_type</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <drilldown>
+          <set token="rtype_tok">$click.value$</set>
+          <link>
+            <![CDATA[
+            dns_query_info?form.time_range.earliest=$info_min_time$&form.time_range.latest=$info_max_time$&form.querytype=$rtype_tok$
+            ]]>
+          </link>
+        </drilldown>
+      </chart>
+    </panel>
+  </row> -->
   <fieldset submitButton="true" autoRun="true">
     <input type="time" token="time_range" searchWhenChanged="false">
       <label>Time Range</label>
@@ -24,8 +67,8 @@
       <suffix>*</suffix>
     </input>
     <input type="checkbox" token="cdn_match">
-      <label>Include Content Delivery Networks</label>
-      <choice value="`cdn_list`">false</choice>
+      <label></label>
+      <choice value="`cdn_list`">Exclude Content Delivery Networks</choice>
       <default></default>
       <initialValue></initialValue>
       <delimiter> </delimiter>
@@ -42,6 +85,17 @@
         </search>
         <option name="height">50</option>
         <option name="useColors">0</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Rarest Domain Queried</title>
+        <search>
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain | rare 1 DNS.ut_domain | fields DNS.ut_domain</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="height">50</option>
       </single>
     </panel>
     <panel>
@@ -128,41 +182,6 @@
         </drilldown>
         <fields>["DNS.query","Trend of Queries","Number of Answers","Number of Queries","Number of Distinct Systems","Systems Making the Request"]</fields>
       </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <chart>
-        <title>Volume of DNS Events By All Types, Over Selected Time Period</title>
-        <search>
-          <query>tag=dns | where record_type!="*" | search NOT ($cdn_match$) | timechart count by record_type</query>
-          <earliest>$time_range.earliest$</earliest>
-          <latest>$time_range.latest$</latest>
-        </search>
-        <option name="charting.chart">column</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
-        <option name="charting.axisTitleX.visibility">visible</option>
-        <option name="charting.axisTitleY.visibility">visible</option>
-        <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.axisX.scale">linear</option>
-        <option name="charting.axisY.scale">linear</option>
-        <option name="charting.axisY2.enabled">0</option>
-        <option name="charting.axisY2.scale">inherit</option>
-        <option name="charting.chart.bubbleMaximumSize">50</option>
-        <option name="charting.chart.bubbleMinimumSize">10</option>
-        <option name="charting.chart.bubbleSizeBy">area</option>
-        <option name="charting.chart.nullValueMode">gaps</option>
-        <option name="charting.chart.showDataLabels">none</option>
-        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
-        <option name="charting.chart.stackMode">stacked</option>
-        <option name="charting.chart.style">shiny</option>
-        <option name="charting.drilldown">none</option>
-        <option name="charting.layout.splitSeries">0</option>
-        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
-        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
-        <option name="charting.legend.placement">right</option>
-      </chart>
     </panel>
   </row>
 </form>

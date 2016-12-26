@@ -35,12 +35,13 @@ require([
         render: function($container, rowData) {
             // rowData contains information about the row that is expanded.  We can see the cells, fields, and values
             // We will find the sourcetype cell to use its value
-            var sourcetypeCell = _(rowData.cells).find(function (cell) {
-               return cell.field === 'sourcetype';
+            var domCell = _(rowData.cells).find(function (cell) {
+               cell.field === 'upper_dom';
+               return cell.field.toLowerCase();
             });
 
             //update the search with the sourcetype that we are interested in
-            this._searchManager.set({ search: 'index=_internal sourcetype=' + sourcetypeCell.value + ' | timechart count'});
+            this._searchManager.set({ search: '| tstats sum(DNS.bytes_in) AS totalin sum(DNS.bytes_out) AS totalout FROM datamodel=pDNS_CIM WHERE DNS.ut_domain=' + domCell.value + ' BY DNS.query'});
 
             // $container is the jquery object where we can put out content.
             // In this case we will render our chart and add it to the $container
