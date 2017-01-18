@@ -36,8 +36,8 @@ require([
             // rowData contains information about the row that is expanded.  We can see the cells, fields, and values
             // We will find the sourcetype cell to use its value
             var domCell = _(rowData.cells).find(function (cell) {
-               cell.field === 'upper_dom';
-               return cell.field.toLowerCase();
+               return cell.field === 'upper_dom';
+            //   return cell.field.toLowerCase();
             });
 
             //update the search with the sourcetype that we are interested in
