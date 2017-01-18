@@ -586,7 +586,7 @@
             ],
             "constraints": [
                 {
-                    "search": "tag=network tag=resolution tag=dns",
+                    "search": "tag=network tag=resolution tag=dns NOT tag=mc",
                     "owner": "DNS"
                 }
             ],
