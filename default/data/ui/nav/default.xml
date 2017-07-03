@@ -1,5 +1,6 @@
 <nav search_view="search" color="#606060">
   <view name="search" />
+  <view name="datasets" />
   <view name="dns_query_info" default='true' />
   <view name="about" />
 </nav>
