@@ -3,43 +3,18 @@
   <!--  <row>
     <panel>
       <chart>
-        <title>Volume of DNS Events By All Types, Over Selected Time Period</title>
+        <title>Average bytes by source IP compared to overall average</title>
         <search>
-          <query>tag=dns | where record_type!="*" | search NOT ($cdn_match$) | chart count by record_type</query>
+          <query>sourcetype=stream:dns | timechart avg(bytes) AS perbytes | eventstats avg(perbytes) AS average</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
-        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
-        <option name="charting.axisTitleX.visibility">visible</option>
-        <option name="charting.axisTitleY.visibility">visible</option>
-        <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.axisX.scale">linear</option>
-        <option name="charting.axisY.scale">linear</option>
-        <option name="charting.axisY2.enabled">0</option>
-        <option name="charting.axisY2.scale">inherit</option>
         <option name="charting.chart">column</option>
-        <option name="charting.chart.bubbleMaximumSize">50</option>
-        <option name="charting.chart.bubbleMinimumSize">10</option>
-        <option name="charting.chart.bubbleSizeBy">area</option>
-        <option name="charting.chart.nullValueMode">gaps</option>
-        <option name="charting.chart.showDataLabels">none</option>
-        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
-        <option name="charting.chart.stackMode">stacked</option>
-        <option name="charting.chart.style">shiny</option>
-        <option name="charting.drilldown">all</option>
-        <option name="charting.layout.splitSeries">0</option>
-        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
-        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
-        <option name="charting.legend.placement">right</option>
-        <drilldown>
-          <set token="rtype_tok">$click.value$</set>
-          <link>
-            <![CDATA[
-            dns_query_info?form.time_range.earliest=$info_min_time$&form.time_range.latest=$info_max_time$&form.querytype=$rtype_tok$
-            ]]>
-          </link>
-        </drilldown>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.legend.masterLegend">null</option>
+        <option name="height">300</option>
+        <option name="charting.chart.overlayFields">average</option>
+        <option name="charting.fieldColors">{"perbytes": 0x639BF1, "average":0xFF5A09}</option>
       </chart>
     </panel>
   </row> -->
@@ -187,18 +162,42 @@
   <row>
     <panel>
       <chart>
-        <title>Average bytes by source IP compared to overall average</title>
+        <title>Volume of DNS Events By All Types, Over Selected Time Period</title>
         <search>
-          <query>sourcetype=stream:dns | timechart avg(bytes) AS perbytes | eventstats avg(perbytes) AS average</query>
+          <query>tag=dns 
+| where record_type!="*" 
+| search $cdn_match$ 
+| timechart count by record_type</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.text">Time</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
         <option name="charting.chart">column</option>
-        <option name="charting.legend.placement">bottom</option>
-        <option name="charting.legend.masterLegend">null</option>
-        <!--            <option name="height">300</option> -->
-        <option name="charting.chart.overlayFields">average</option>
-        <option name="charting.fieldColors">{"perbytes": 0x639BF1, "average":0xFF5A09}</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <drilldown>
+          <link target="_self">/app/pdns/dns_query_info?form.time_range.earliest=$earliest$&amp;form.time_range.latest=$latest$&amp;form.querytype=$click.name2$</link>
+        </drilldown>
       </chart>
     </panel>
   </row>
