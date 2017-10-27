@@ -12,13 +12,14 @@
 import csv
 import urllib
 import zipfile
-import re
 
 src_url = 'http://malware-domains.com/files/domains.zip'
 local_file = '/tmp/domains.zip'
 
+
 def fetch_list():
     urllib.urlretrieve(src_url, local_file)
+
 
 def prep_lookup():
     with zipfile.ZipFile(local_file, 'r') as zip_file:
@@ -31,13 +32,14 @@ def prep_lookup():
             if row[0] == '##':
                 continue
             else:
-                processedfile.write(row[2]+','+row[3]+','+row[4]+'\n')
+                processedfile.write(row[2] + ',' + row[3] + ',' + row[4] + '\n')
     processedfile.close()
+
 
 def main():
     fetch_list()
     prep_lookup()
 
+
 if __name__ == "__main__":
     main()
-
