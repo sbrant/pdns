@@ -32,7 +32,8 @@ def prep_lookup():
             if row[0] == '##':
                 continue
             else:
-                processedfile.write(row[2] + ',' + row[3] + ',' + row[4] + '\n')
+                processedfile.write(
+                    row[2] + ',' + row[3] + ',' + row[4] + '\n')
     processedfile.close()
 
 
