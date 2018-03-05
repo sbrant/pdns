@@ -49,7 +49,7 @@
                 });
                 this._searchManager.set({ 
 			search: '| tstats count FROM datamodel=pDNS_CIM WHERE DNS.query=*' + upperDom.value + ' by _time span=2h',
-			earliest_time: '-5d',
+			earliest_time: '-7d',
 			latest_time: 'now' 
 		});
                 // $container is the jquery object where we can put out content.
