@@ -28,7 +28,14 @@
     </input>
     <input type="multiselect" token="querytype" searchWhenChanged="false">
       <label>Query Type</label>
-      <search ref="query type"></search>
+      <search>
+        <query>| tstats count from datamodel=pDNS_CIM BY DNS.record_type 
+| regex DNS.record_type!=\*
+| rename DNS.record_type AS dns_record_type
+| fields - count</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
       <fieldForLabel>query_type</fieldForLabel>
       <fieldForValue>dns_record_type</fieldForValue>
       <initialValue>A</initialValue>
@@ -51,38 +58,66 @@
   </fieldset>
   <row>
     <panel>
-      <single>
-        <title>Top Domain Queried</title>
+      <chart>
+        <title>Top Domains Queried</title>
         <search>
-          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain | sort -count</query>
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain
+| search $cdn_match$
+| rename DNS.ut_domain AS domain
+| sort limit=10 -count</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
-        <option name="height">50</option>
-        <option name="useColors">0</option>
-      </single>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="height">100</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
     </panel>
     <panel>
-      <single>
-        <title>Rarest Domain Queried</title>
+      <chart>
+        <title>Rarest Domains Queried</title>
         <search>
-          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain | rare 1 DNS.ut_domain | fields DNS.ut_domain</query>
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain 
+| search $cdn_match$
+| rename DNS.ut_domain AS domain
+| sort limit=10 count</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
-        <option name="height">50</option>
-      </single>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="height">100</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
     </panel>
     <panel>
-      <single>
-        <title>Top Client</title>
+      <chart>
+        <title>Top Clients</title>
         <search>
-          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ BY DNS.src | sort -count</query>
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ BY DNS.src 
+| rename DNS.src AS client
+| sort limit=10 -count</query>
           <earliest>$time_range.earliest$</earliest>
           <latest>$time_range.latest$</latest>
         </search>
-        <option name="height">50</option>
-      </single>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="height">100</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
     </panel>
     <panel>
       <single>
@@ -96,7 +131,7 @@
           <latest>$time_range.latest$</latest>
         </search>
         <option name="drilldown">all</option>
-        <option name="height">50</option>
+        <option name="height">92</option>
         <option name="rangeColors">["0x65a637","0xd93f3c"]</option>
         <option name="rangeValues">[0]</option>
         <option name="useColors">1</option>
@@ -106,7 +141,7 @@
   <row>
     <panel>
       <table id="expand_with_events">
-        <title>Click row to drill down on query detail or click on arrow to the left to see frequency and volume over the past 5 days</title>
+        <title>Click row to drill down on query detail or click on arrow to the left to see frequency and volume over the past 7 days</title>
         <search>
           <query>| datamodel pDNS_CIM DNS search 
 | search DNS.record_type=$querytype$ DNS.query=$poq$ NOT DNS.ut_domain="None" 
@@ -124,7 +159,7 @@
           <latest>$time_range.latest$</latest>
         </search>
         <option name="count">8</option>
-        <option name="dataOverlayMode">heatmap</option>
+        <option name="dataOverlayMode">none</option>
         <option name="drilldown">row</option>
         <option name="refresh.display">preview</option>
         <option name="rowNumbers">false</option>
