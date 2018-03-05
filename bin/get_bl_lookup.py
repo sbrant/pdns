@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # --------------------------------------------------------------
 #
 # Example script to build a blacklist lookup from online sources.
