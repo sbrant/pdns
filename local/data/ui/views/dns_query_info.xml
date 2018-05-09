@@ -71,12 +71,12 @@
         <option name="charting.axisTitleX.visibility">collapsed</option>
         <option name="charting.axisTitleY.visibility">collapsed</option>
         <option name="charting.axisY.scale">linear</option>
-        <option name="charting.chart">column</option>
+        <option name="charting.chart">bar</option>
         <option name="charting.chart.stackMode">default</option>
         <option name="charting.drilldown">none</option>
         <option name="charting.layout.splitSeries">0</option>
         <option name="charting.legend.placement">none</option>
-        <option name="height">100</option>
+        <option name="height">300</option>
         <option name="refresh.display">progressbar</option>
       </chart>
     </panel>
@@ -93,10 +93,10 @@
         </search>
         <option name="charting.axisTitleX.visibility">collapsed</option>
         <option name="charting.axisTitleY.visibility">collapsed</option>
-        <option name="charting.chart">column</option>
+        <option name="charting.chart">bar</option>
         <option name="charting.drilldown">none</option>
         <option name="charting.legend.placement">none</option>
-        <option name="height">100</option>
+        <option name="height">302</option>
         <option name="refresh.display">progressbar</option>
       </chart>
     </panel>
@@ -112,10 +112,10 @@
         </search>
         <option name="charting.axisTitleX.visibility">collapsed</option>
         <option name="charting.axisTitleY.visibility">collapsed</option>
-        <option name="charting.chart">column</option>
+        <option name="charting.chart">bar</option>
         <option name="charting.drilldown">none</option>
         <option name="charting.legend.placement">none</option>
-        <option name="height">100</option>
+        <option name="height">304</option>
         <option name="refresh.display">progressbar</option>
       </chart>
     </panel>
@@ -194,6 +194,12 @@
         <option name="drilldown">cell</option>
         <option name="rowNumbers">false</option>
         <option name="wrap">true</option>
+        <format type="sparkline" field="Trend of Queries">
+                <option name="type">bar</option>
+                <option name="height">20px</option>
+                <option name="barColor">#53A8AF</option>
+                <option name="barWidth">4px</option>
+        </format>
         <fields>["DNS.query","Trend of Queries","Number of Answers","Number of Queries","Number of Distinct Systems","Systems Making the Request"]</fields>
         <drilldown target="_blank">
           <link>
