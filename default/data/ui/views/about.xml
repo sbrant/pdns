@@ -3,7 +3,7 @@
   <row>
     <panel>
       <html>
-        Created by Steve Brant and Kathy Wang
+        Created by Steve Brant
         <br></br>
         <br></br>
 	This app allows the user to view and investigate passively collected, local DNS data. It flags DNS activity involving blacklisted domains (knowns). It also assists by highlighting potential indicators (unknowns) of nefarious activity in the DNS realm, such as exfiltration.
