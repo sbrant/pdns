@@ -136,6 +136,19 @@
         <option name="rangeValues">[0]</option>
         <option name="useColors">1</option>
       </single>
+      <table>
+        <title>DNS Servers Queried (any query type)</title>
+        <search>
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.message_type="QUERY" BY DNS.dest
+| rename DNS.dest AS "DNS Server"
+| sort -count</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="count">3</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
     </panel>
   </row>
   <row>
@@ -195,10 +208,10 @@
         <option name="rowNumbers">false</option>
         <option name="wrap">true</option>
         <format type="sparkline" field="Trend of Queries">
-                <option name="type">bar</option>
-                <option name="height">20px</option>
-                <option name="barColor">#53A8AF</option>
-                <option name="barWidth">4px</option>
+          <option name="type">bar</option>
+          <option name="height">20px</option>
+          <option name="barColor">#53A8AF</option>
+          <option name="barWidth">4px</option>
         </format>
         <fields>["DNS.query","Trend of Queries","Number of Answers","Number of Queries","Number of Distinct Systems","Systems Making the Request"]</fields>
         <drilldown target="_blank">
