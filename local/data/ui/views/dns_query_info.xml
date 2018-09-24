@@ -48,6 +48,12 @@
       <prefix>*</prefix>
       <suffix>*</suffix>
     </input>
+    <input type="text" token="client_ip">
+      <label>Client IP</label>
+      <default>*</default>
+      <prefix>*</prefix>
+      <suffix>*</suffix>
+    </input>
     <input type="checkbox" token="cdn_match">
       <label></label>
       <choice value="`cdn_list`">Exclude Content Delivery Networks</choice>
@@ -61,8 +67,8 @@
       <chart>
         <title>Top Domains Queried</title>
         <search>
-          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain
-| search $cdn_match$
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" DNS.src=$client_ip$ BY DNS.ut_domain
+| search $cdn_match$ 
 | rename DNS.ut_domain AS domain
 | sort limit=10 -count</query>
           <earliest>$time_range.earliest$</earliest>
@@ -84,7 +90,7 @@
       <chart>
         <title>Rarest Domains Queried</title>
         <search>
-          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" BY DNS.ut_domain 
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.record_type=$querytype$ DNS.ut_domain!="None" DNS.src=$client_ip$ BY DNS.ut_domain 
 | search $cdn_match$
 | rename DNS.ut_domain AS domain
 | sort limit=10 count</query>
@@ -139,7 +145,7 @@
       <table>
         <title>DNS Servers Queried (any query type)</title>
         <search>
-          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.message_type="QUERY" BY DNS.dest
+          <query>| tstats count FROM datamodel=pDNS_CIM WHERE DNS.message_type="QUERY" DNS.src=$client_ip$ BY DNS.dest
 | rename DNS.dest AS "DNS Server"
 | sort -count</query>
           <earliest>$time_range.earliest$</earliest>
@@ -157,7 +163,7 @@
         <title>Click row to drill down on query detail or click on arrow to the left to see frequency and volume over the past 7 days</title>
         <search>
           <query>| datamodel pDNS_CIM DNS search 
-| search DNS.record_type=$querytype$ DNS.query=$poq$ NOT DNS.ut_domain="None" 
+| search DNS.record_type=$querytype$ DNS.query=$poq$ DNS.src=$client_ip$ NOT DNS.ut_domain="None" 
 | search $cdn_match$ 
 | eval upper_dom=upper('DNS.ut_domain') 
 | eval upper_dom=if(upper_dom == "NONE",'DNS.ut_domain',upper_dom) 
