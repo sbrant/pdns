@@ -12,6 +12,7 @@
             "objectName": "DNS",
             "displayName": "DNS",
             "parentName": "BaseEvent",
+            "comment": "",
             "fields": [
                 {
                     "fieldName": "additional_answer_count",
@@ -403,7 +404,7 @@
                     "editable": true,
                     "comment": "",
                     "calculationType": "Eval",
-                    "expression": "if(isnull(dest) OR dest=\"\",\"unknown\",dest)"
+                    "expression": "if(isnull(dest) OR dest=\"\",dest_ip,\"unknown\")"
                 },
                 {
                     "outputFields": [
@@ -568,6 +569,19 @@
                             "displayName": "ut_list",
                             "comment": "",
                             "lookupOutputFieldName": "list"
+                        },
+                        {
+                            "fieldName": "ut_tld",
+                            "owner": "DNS",
+                            "type": "string",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "ut_tld",
+                            "comment": "",
+                            "lookupOutputFieldName": "ut_tld"
                         }
                     ],
                     "calculationType": "Lookup",
@@ -586,7 +600,7 @@
             ],
             "constraints": [
                 {
-                    "search": "tag=network tag=resolution tag=dns NOT tag=mc",
+                    "search": "tag=network tag=resolution tag=dns",
                     "owner": "DNS"
                 }
             ],
